@@ -63,11 +63,10 @@
     var timeline = [];
     var preloadimages = [];
     var id = jsPsych.data.getURLVariable("id");
-    var colorOrder = jsPsych.data.getURLVariable("colorOrder");
+    //var colorOrder = jsPsych.data.getURLVariable("colorOrder");
     var jspsych_id = jsPsych.data.getURLVariable("jspsych_id");
     var prolificID = jsPsych.data.getURLVariable("prolificID");
     var vaast_condition_approach = jsPsych.data.getURLVariable("vaast_condition_approach");
-    var ColorGroup = jsPsych.data.getURLVariable("ColorGroup");
 
     /* Generate RC trials */
     var imgsRC = $.map($(Array(numOfPairs)), function (val, i) { return i + 1; }); // generate numerical sequence
@@ -640,16 +639,16 @@
     preloadimages = _.flattenDeep(preloadimages);
 
     /*  ~~~~~~~~~~~~~~~~ TIMELINES  ~~~~~~~~~~~~~~~~ */
-    //timeline.push(activateFullscreen);
-    //timeline.push(RCinst1);
-    //timeline.push(RCinst2);
-   // timeline.push(RCinst3a); // repeat after first block
-   // timeline.push(RCinst4); // repeat after first block
-   // timeline.push(RC1);
-   // timeline.push(RCinst5); // in between blocks
-   // timeline.push(RCinst3b); // repeat after first block
-   //timeline.push(RCinst4); // repeat after first block
-    //timeline.push(RC2);
+    timeline.push(activateFullscreen);
+    timeline.push(RCinst1);
+    timeline.push(RCinst2);
+    timeline.push(RCinst3a); // repeat after first block
+    timeline.push(RCinst4); // repeat after first block
+    timeline.push(RC1);
+    timeline.push(RCinst5); // in between blocks
+    timeline.push(RCinst3b); // repeat after first block
+    timeline.push(RCinst4); // repeat after first block
+    timeline.push(RC2);
     timeline.push(RCend);
     timeline.push(InstST);
     timeline.push(ST_procedure);
@@ -694,7 +693,6 @@
                 jspsych_id: jspsych_id,
                 prolificID: prolificID,
                 vaast_condition_approach: vaast_condition_approach,
-                ColorGroup: ColorGroup,
             });
 
             var data = jsPsych.data.get().filterCustom(function (x) {
