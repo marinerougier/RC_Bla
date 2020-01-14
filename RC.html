@@ -21,19 +21,15 @@
         body {
             cursor: default;
         }
-
         .rcimg-12 {
             cursor: pointer;
         }
-
         .rcimg-12 {
             margin: 10px;
         }
-
         .rcimg-12:hover {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
-
         .jspsych-content-wrapper {
             width: 900px;
             height: 700px;
@@ -44,14 +40,19 @@
 <body></body>
 
 <script>
+
     /* Parameters */
     var numOfPairs = 150 * 6; // Total number of pair images images (inv & ori)
+
     // var qlink = 'https://uclpsychology.co1.qualtrics.com/jfe/form/SV_3ehqq1xeNEEfP2R';
     var FBdirectory = 'RCmarine2'; // Firebase directory
+
+
 
     /* Functions */
     // Return image link
     var imgLink = function (imgNum, oriInv) {
+
         if (oriInv == "inv") {
             return 'https://marinerougier.github.io/CIs_ExpeBla_VAASTRC_Inv/faceInv' + imgNum + '.png?raw=1'
         } else {
@@ -59,28 +60,31 @@
         };
     };
 
+
+
     /* Initial variables */
     var timeline = [];
     var preloadimages = [];
     var id = jsPsych.data.getURLVariable("id");
-    //var colorOrder = jsPsych.data.getURLVariable("colorOrder");
-    var jspsych_id = jsPsych.data.getURLVariable("jspsych_id");
     var prolificID = jsPsych.data.getURLVariable("prolificID");
     var vaast_condition_approach = jsPsych.data.getURLVariable("vaast_condition_approach");
 
     /* Generate RC trials */
+
     var imgsRC = $.map($(Array(numOfPairs)), function (val, i) { return i + 1; }); // generate numerical sequence
+
     imgsRC.map(function (e) {
         preloadimages.push(imgLink(e, 'ori'));
         preloadimages.push(imgLink(e, 'inv'));
     });
 
+
+
     var genFacesPerSlide = function (numOfFacesPerTrial, imgs) {
         numOfFacesPerTrial = numOfFacesPerTrial / 2;
-
         var chunkedArray = [];
-
         var i, j, trialImgs, chunk = numOfFacesPerTrial;
+
         for (i = 0, j = imgs.length; i < j; i += chunk) {
 
             trialImgs = imgs.slice(i, i + chunk);
@@ -93,7 +97,10 @@
                 tempInv.push(imgLink(e, 'inv'));
             });
 
+
+
             trialImgs = _.flattenDeep([tempOri, tempInv]);
+
             // trialImgs = _.shuffle(trialImgs); // randomize order in slide
 
             chunkedArray.push({
@@ -103,9 +110,12 @@
         return chunkedArray;
     };
 
+
     var RCstim = genFacesPerSlide(12, imgsRC); // RC fast-12: 250 trials (6 ori + 6 anti = 12  faces per trial)
 
+
     // Preload faces for the sorting task
+
     var faces = [
         "faces/n1_bm027.png",
         "faces/n1_bm044.png",
@@ -128,10 +138,10 @@
     preloadimages.push(faces);
 
 
-
-
     // EXPERIMENT -----------------------------------------------------------------------------------------------------------------
+
     /* Randomize RC order */
+
     var genColor = function (colorID, colorName) { return "<span style='color:" + colorID + "'><b>" + colorName + "</b></span>" };
 
     var colorOrder = colorOrder == null ? _.sample(["blueFirst", "yellowFirst"]) : colorOrder;
@@ -149,6 +159,7 @@
     };
 
     /* Instructions and Fullscreen mode */
+
     var activateFullscreen = {
         type: 'fullscreen',
         fullscreen_mode: true,
@@ -157,8 +168,8 @@
         button_label: "Please click here to activate the fullscreen mode",
     };
 
-
     /* RC instructions */
+
     var RCinst1 = {
         type: "html-button-response",
         post_trial_gap: 300,
@@ -252,7 +263,9 @@
         },
     };
 
+
     /* RC */
+
     var i = 1;
     var RC1 = {
         timeline_variables: RCstim,
@@ -284,6 +297,7 @@
     };
 
     var ii = 1;
+
     var RC2 = {
         timeline_variables: RCstim,
         randomize_order: true,
@@ -334,8 +348,8 @@
             var html = "";
             html += "<h1>Memory task</h1>";
             html += "<p class = 'justify'>Now, we will display the faces that you saw in the first task (Video Game task). ";
-            html += "Your task is to indicate, for each face, if it belongs to the "+ color1 +" or to the "+ color2 +" group, that is, ";
-            html += "<b>if the face was presented with a "+ color1 +" or a "+ color2 +" background in the first task. </b></br></br>";
+            html += "Your task is to indicate, for each face, if it belongs to the " + color1 + " or to the " + color2 + " group, that is, ";
+            html += "<b>if the face was presented with a " + color1 + " or a " + color2 + " background in the first task. </b></br></br>";
             html += "Be careful: on each trial, the face will be displayed <b>only during 1.5 seconds</b>. You will be asked to provide an answer after the face dissapears from the screen. </br></br>";
             html += "Note that it is <b>extremely important that you answer as honestly and as spontaneously as possible.</b> ";
             html += "The first answer that comes to mind is usually the best answer. </br>";
@@ -361,6 +375,7 @@
                 ],
                 on_finish: function (data) {
                     // add & clean data
+                    data.task = 'memory';
                     data.rating = JSON.parse(data.responses)["Q0"] + 1;
                     data.face = jsPsych.timelineVariable('face', true);
 
@@ -391,7 +406,7 @@
             { face: 'faces/n4_BM251.png' }
         ],
         randomize_order: true
-    }
+    };
 
 
     var ThermoPreamble = '<p class = "justify">Please indicate how warm or cold you feel toward the groups below. ' +
@@ -400,11 +415,11 @@
 
     var ThermoScale = ["1</br>Coldest feelings", "2", "3", "4", "5", "6", "7", "8", "9</br>Warmest feelings"];
 
-
     var ThermoGrpItems = [
         'White people',
         'Black people',
     ];
+
 
     ThermoGrpItems = _.shuffle(ThermoGrpItems);
 
@@ -416,10 +431,12 @@
         preamble: ThermoPreamble,
         questions: questionsThermoGrp,
         post_trial_gap: 300,
+
         on_load: function () {
             $(".jspsych-content-wrapper").css("height", "auto");
             $(".jspsych-content-wrapper").scrollTop(0);
         },
+
         on_finish: function (data) {
             $(".jspsych-content-wrapper").css("height", "700px");
             console.log(data.responses);
@@ -431,13 +448,14 @@
                 });
             } else {
                 jsPsych.data.addProperties({
-                    ThermoBlack: parsed_response.Q0,
                     ThermoWhite: parsed_response.Q1,
+                    ThermoBlack: parsed_response.Q0,
                 });
             }
             console.log(jsPsych.data);
         },
     };
+
 
     var genderOptions = ['Male', 'Female', 'Other'];
     var gender = {
@@ -548,7 +566,6 @@
 
     var likertScale = ["1</br>Totally disagree", "2", "3", "4", "5", "6", "7</br>Totally agree"];
 
-
     var likingGrpItems = [
         'I like the ' + genColor("#b5a21b", "yellow") + ' group.',
         'I like the ' + genColor("#2a57ea", "blue") + ' group.',
@@ -618,7 +635,6 @@
         delay_after: 400,
     };
 
-
     var debriefing = '' +
         '<span style="color:#cc3300; font-weight: bold">Debriefing and survey validation</span></br></br>' +
         '<p class = "justify">' +
@@ -635,10 +651,11 @@
         'Or you can click on the following link: <a href="https://app.prolific.co/submissions/complete?cc=2A773EB3">https://app.prolific.co/submissions/complete?cc=2A773EB3</a>' +
         '</p>'
 
-
     preloadimages = _.flattenDeep(preloadimages);
 
+
     /*  ~~~~~~~~~~~~~~~~ TIMELINES  ~~~~~~~~~~~~~~~~ */
+
     timeline.push(activateFullscreen);
     timeline.push(RCinst1);
     timeline.push(RCinst2);
@@ -674,7 +691,7 @@
         },
         on_finish: function (data) {
             $("#jspsych-content").html("<img src='https://i.gifer.com/4V0b.gif'>");
-
+            
             /* Initialize Firebase */
             var config = {
                 apiKey: "AIzaSyBwDr8n-RNCbBOk1lKIxw7AFgslXGcnQzM",
@@ -690,26 +707,32 @@
             /* jsPsych: add data to every trial */
             jsPsych.data.addProperties({
                 id: id,
-                jspsych_id: jspsych_id,
                 prolificID: prolificID,
                 vaast_condition_approach: vaast_condition_approach,
             });
 
-            var data = jsPsych.data.get().filterCustom(function (x) {
+            var dataRC = jsPsych.data.get().filterCustom(function (x) {
                 return x.task == "RC1" || x.task == "RC2"
             }).csv();
+            var dataMemory = data.filter({ task: 'memory' }).csv();
 
             /* Send data to Firebase and redirect to Qualtrics */
             database
                 .ref(FBdirectory + "/" + id + "/")
-                .update({ data })
+                .update({ dataRC })
                 .then(function () {
-                    console.log("Data sent!");
-                    $("#jspsych-content").html(debriefing);
-                    // jsPsych.data.displayData()
+                    database
+                        .ref(FBdirectory + "/" + id + "/")
+                        .update({ dataMemory })
+                        .then(function () {
+                            console.log("Data sent!");
+                            $("#jspsych-content").html(debriefing);
+                            // jsPsych.data.displayData()
+                        });
                 });
         }
     });
+
 </script>
 
 </html>
