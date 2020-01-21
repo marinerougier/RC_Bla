@@ -45,7 +45,7 @@
     var numOfPairs = 150 * 6; // Total number of pair images images (inv & ori)
 
     // var qlink = 'https://uclpsychology.co1.qualtrics.com/jfe/form/SV_3ehqq1xeNEEfP2R';
-    var FBdirectory = 'RCmarine2'; // Firebase directory
+    var FBdirectory = 'RCmarine3'; // Firebase directory
 
 
 
@@ -54,9 +54,9 @@
     var imgLink = function (imgNum, oriInv) {
 
         if (oriInv == "inv") {
-            return 'https://marinerougier.github.io/CIs_ExpeBla_VAASTRC_Inv/faceInv' + imgNum + '.png?raw=1'
+            return 'https://marinerougier.github.io/CIs_ExpeBW_VAASTRC_Inv/faceInv' + imgNum + '.png?raw=1'
         } else {
-            return 'https://marinerougier.github.io/CIs_ExpeBla_VAASTRC_Ori/faceOri' + imgNum + '.png?raw=1'
+            return 'https://marinerougier.github.io/CIs_ExpeBW_VAASTRC_Ori/faceOri' + imgNum + '.png?raw=1'
         };
     };
 
@@ -132,7 +132,15 @@
         "faces/n4_BM039.png",
         "faces/n4_BM045.png",
         "faces/n4_BM210.png",
-        "faces/n4_BM251.png"
+        "faces/n4_BM251.png",
+        "faces/n-1_wm202.png",
+        "faces/n-1_wm218.png",
+        "faces/n-1_wm223.png",
+        "faces/n-1_wm257.png",
+        "faces/n0_wm002.png",
+        "faces/n0_wm022.png",
+        "faces/n0_wm028.png",
+        "faces/n0_wm253.png"
     ];
 
     preloadimages.push(faces);
@@ -403,7 +411,15 @@
             { face: 'faces/n4_BM039.png' },
             { face: 'faces/n4_BM045.png' },
             { face: 'faces/n4_BM210.png' },
-            { face: 'faces/n4_BM251.png' }
+            { face: 'faces/n4_BM251.png' },
+            { face: 'faces/n-1_wm202.png' },
+            { face: 'faces/n-1_wm218.png' },
+            { face: 'faces/n-1_wm223.png' },
+            { face: 'faces/n-1_wm257.png' },
+            { face: 'faces/n0_wm002.png' },
+            { face: 'faces/n0_wm022.png' },
+            { face: 'faces/n0_wm028.png' },
+            { face: 'faces/n0_wm253.png' },
         ],
         randomize_order: true
     };
